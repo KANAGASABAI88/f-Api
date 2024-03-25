@@ -10,6 +10,12 @@ user_db = {
 }
 
 
-@app.get('/')
-def root():
-    return {'output': 'my first api'}
+@app.get('/users')
+def get_users_query(limit: int = 2):
+    users_list = list(user_db.values())
+    return users_list[:limit]
+
+
+@app.get('/users/{username}')
+def get_users_path(username: str = 'jack'):
+    return user_db[username]
